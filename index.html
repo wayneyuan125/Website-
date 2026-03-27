@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kinetic Trials | The Agentic Operating System for Clinical Research</title>
+    <meta name="description" content="Kinetic Trials is building the AI-native operating system for clinical trial execution. Purpose-built AI agents that transform site operations and accelerate drug development.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap');
+
+        * {
+            font-family: 'Syne', sans-serif !important;
+        }
+
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #111118;
+            --bg-card: #16161f;
+            --bg-card-hover: #1c1c28;
+            --text-primary: #f0f0f5;
+            --text-secondary: #a0a0b8;
+            --text-muted: #6b6b82;
+            --accent: #4f7df5;
+            --accent-light: #6b93ff;
+            --accent-glow: rgba(79, 125, 245, 0.15);
+            --accent-green: #34d399;
+            --accent-amber: #fbbf24;
+            --accent-rose: #f472b6;
+            --accent-violet: #a78bfa;
+            --border: rgba(255, 255, 255, 0.06);
+            --border-light: rgba(255, 255, 255, 0.1);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --font-display: 'Syne', sans-serif;
+            --font-body: 'Syne', sans-serif;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+            -webkit-text-size-adjust: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        /* ── Utility ── */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent-light);
+            margin-bottom: 20px;
+        }
+
+        .section-label::before {
+            content: '';
+            width: 20px;
+            height: 1px;
+            background: var(--accent);
+        }
+
+        /* ── Nav ── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 18px 0;
+            transition: all 0.4s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 0;
+        }
+
+        nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: #ffffff;
+            text-decoration: none;
+            letter-spacing: -0.02em;
+            font-weight: 800;
+        }
+
+        .nav-logo span {
+            color: #ffffff;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 36px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-cta {
+            background: var(--accent);
+            color: #fff !important;
+            padding: 10px 24px;
+            border-radius: 100px;
+            font-weight: 600 !important;
+            transition: all 0.3s !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--accent-light) !important;
+            transform: translateY(-1px);
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        /* ── Hero ── */
+        .hero {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 160px 24px 48px;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 900px;
+            height: 900px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(79, 125, 245, 0.08) 0%, transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            top: 20%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(167, 139, 250, 0.05) 0%, transparent 70%);
+            animation: pulse 10s ease-in-out infinite reverse;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translateX(-50%) scale(1); opacity: 1; }
+            50% { transform: translateX(-50%) scale(1.1); opacity: 0.7; }
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+            background-size: 80px 80px;
+            mask-image: radial-gradient(ellipse 60% 50% at 50% 40%, black 20%, transparent 100%);
+            -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 40%, black 20%, transparent 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            text-align: center;
+            max-width: 860px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            background: rgba(79, 125, 245, 0.08);
+            border: 1px solid rgba(79, 125, 245, 0.2);
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--accent-light);
+            margin-bottom: 32px;
+            animation: fadeUp 0.8s ease both;
+        }
+
+        .hero-badge-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            animation: blink 2s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 28px;
+            animation: fadeUp 0.8s ease 0.1s both;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            font-weight: 800;
+            color: var(--accent-light);
+        }
+
+        .hero-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 44px;
+            text-align: left;
+            animation: fadeUp 0.8s ease 0.2s both;
+        }
+
+        .hero-col {
+            font-size: 1.05rem;
+            color: #c8c8dc;
+            line-height: 1.7;
+        }
+
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            animation: fadeUp 0.8s ease 0.3s both;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 100px;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(79, 125, 245, 0.3);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-light);
+            border-radius: 100px;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--text-muted);
+            background: rgba(255,255,255,0.03);
+        }
+
+        /* ── Backed By ── */
+        .backed-by {
+            border-bottom: 1px solid var(--border);
+            padding: 32px 24px;
+        }
+
+        .backed-by .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 48px;
+        }
+
+        .backed-label {
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
+        .backed-logos {
+            display: flex;
+            align-items: center;
+            gap: 48px;
+        }
+
+        .investor-logo {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .investor-logo:hover {
+            color: var(--text-secondary);
+        }
+
+        .logo-svg {
+            height: 32px;
+            width: auto;
+        }
+
+        /* ── Platform Section ── */
+        .platform {
+            padding: 100px 24px 24px;
+            position: relative;
+        }
+
+        .platform-header {
+            max-width: 100%;
+        }
+
+        .platform-header h2 {
+            font-family: var(--font-display);
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin-bottom: 28px;
+        }
+
+        .platform-header h2 em {
+            font-style: normal;
+            font-weight: 800;
+            color: var(--accent-light);
+        }
+
+        .platform-cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .platform-cols p {
+            font-size: 0.95rem;
+            color: #c8c8dc;
+            line-height: 1.75;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-bottom: 72px;
+        }
+
+        .stat-card {
+            background: var(--bg-secondary);
+            padding: 36px 32px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.825rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .stat-source {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            opacity: 0.6;
+            margin-top: 6px;
+        }
+
+        /* ── Agents Section ── */
+        .agents {
+            padding: 60px 24px 100px;
+            position: relative;
+        }
+
+        .agents-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 64px;
+        }
+
+        .agents-header h2 {
+            font-family: var(--font-display);
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .agents-header h2 em {
+            font-style: normal; font-weight: 800;
+            color: var(--accent-light);
+        }
+
+        .agents-header p {
+            color: #c8c8dc;
+            font-size: 1.05rem;
+        }
+
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .agent-card {
+            background: var(--bg-secondary);
+            padding: 40px 32px;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .agent-card:hover {
+            background: var(--bg-card-hover);
+        }
+
+        .agent-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 24px;
+        }
+
+        .agent-card:nth-child(1) .agent-icon {
+            background: rgba(79, 125, 245, 0.12);
+            color: var(--accent-light);
+        }
+        .agent-card:nth-child(2) .agent-icon {
+            background: rgba(52, 211, 153, 0.12);
+            color: var(--accent-green);
+        }
+        .agent-card:nth-child(3) .agent-icon {
+            background: rgba(251, 191, 36, 0.12);
+            color: var(--accent-amber);
+        }
+        .agent-card:nth-child(4) .agent-icon {
+            background: rgba(167, 139, 250, 0.12);
+            color: var(--accent-violet);
+        }
+
+        .agent-name {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            margin-bottom: 4px;
+        }
+
+        .agent-role {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 16px;
+        }
+
+        .agent-card:nth-child(1) .agent-role { color: var(--accent-light); }
+        .agent-card:nth-child(2) .agent-role { color: var(--accent-green); }
+        .agent-card:nth-child(3) .agent-role { color: var(--accent-amber); }
+        .agent-card:nth-child(4) .agent-role { color: var(--accent-violet); }
+
+        .agent-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+
+        /* ── How It Works ── */
+        .how-it-works {
+            padding: 100px 24px 140px;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .how-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 72px;
+        }
+
+        .how-header h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .how-header h2 em {
+            font-style: normal; font-weight: 800;
+            color: var(--accent-light);
+        }
+
+        .how-header p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .step {
+            position: relative;
+            padding: 40px 32px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            transition: all 0.3s;
+        }
+
+        .step:hover {
+            border-color: var(--border-light);
+            transform: translateY(-4px);
+        }
+
+        .step-number {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            color: rgba(79, 125, 245, 0.15);
+            position: absolute;
+            top: 20px;
+            right: 24px;
+        }
+
+        .step h3 {
+            font-family: var(--font-display);
+            font-size: 1.35rem;
+            margin-bottom: 12px;
+        }
+
+        .step p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .step-time {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 16px;
+            padding: 6px 14px;
+            background: rgba(52, 211, 153, 0.08);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent-green);
+        }
+
+        /* ── CTA / Waitlist ── */
+        .cta-section {
+            padding: 140px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 700px;
+            height: 700px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(79, 125, 245, 0.06) 0%, transparent 70%);
+        }
+
+        .cta-box {
+            position: relative;
+            max-width: 680px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .cta-box h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .cta-box h2 em {
+            font-style: normal; font-weight: 800;
+            color: var(--accent-light);
+        }
+
+        .cta-box > p {
+            color: #c8c8dc;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 48px;
+            max-width: 540px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-form {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 40px;
+            text-align: left;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 14px 16px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+            -webkit-appearance: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--accent);
+        }
+
+        .form-group input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-group select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b6b82' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 40px;
+        }
+
+        .form-group select option {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .form-submit {
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        .form-submit .btn-primary {
+            width: 100%;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        .form-note {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* ── Footer ── */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 48px 24px;
+        }
+
+        footer .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            color: #ffffff;
+            font-weight: 800;
+        }
+
+        .footer-logo span {
+            color: #ffffff;
+        }
+
+        .footer-right {
+            font-size: 0.825rem;
+            color: var(--text-muted);
+        }
+
+        /* ── Mobile ── */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 32px;
+            }
+
+            .agents-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                background: rgba(10, 10, 15, 0.98);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                padding: 24px;
+                gap: 28px;
+                z-index: 99;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                font-size: 1.1rem;
+            }
+
+            .mobile-toggle {
+                display: block;
+                z-index: 101;
+            }
+
+            .hero {
+                padding: 120px 24px 80px;
+                min-height: auto;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-columns {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .hero-col {
+                font-size: 0.95rem;
+            }
+
+            .hero-actions {
+                justify-content: center;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                max-width: 320px;
+                justify-content: center;
+                padding: 16px 24px;
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            .backed-by .container {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .backed-logos {
+                gap: 32px;
+            }
+
+            .platform,
+            .agents,
+            .how-it-works,
+            .cta-section {
+                padding: 80px 24px;
+            }
+
+            .platform-cols {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .platform-header h2,
+            .agents-header h2,
+            .cta-box h2 {
+                font-size: 1.8rem;
+            }
+
+            .agents-grid {
+                grid-template-columns: 1fr;
+                background: transparent;
+                gap: 12px;
+            }
+
+            .agent-card {
+                border-radius: var(--radius-sm);
+                border: 1px solid var(--border);
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-form {
+                padding: 28px 20px;
+            }
+
+            footer .container {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .hero {
+                padding: 110px 16px 60px;
+            }
+
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .hero-col {
+                font-size: 0.9rem;
+            }
+
+            .hero-columns {
+                margin-bottom: 32px;
+            }
+
+            .nav-logo {
+                font-size: 1.25rem !important;
+            }
+
+            .platform-header h2,
+            .agents-header h2,
+            .cta-box h2 {
+                font-size: 1.5rem;
+            }
+
+            .platform-cols p,
+            .agents-header p,
+            .cta-box > p {
+                font-size: 0.9rem;
+            }
+
+            .agent-card {
+                padding: 28px 20px;
+            }
+
+            .backed-logos {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .cta-form {
+                padding: 24px 16px;
+            }
+
+            .platform,
+            .agents,
+            .cta-section {
+                padding: 60px 16px;
+            }
+        }
+
+        /* ── Scroll animations ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+    </style>
+</head>
+<body>
+<div id="page-wrapper" style="overflow-x: hidden; width: 100%; position: relative;">
+
+    <!-- ── Nav ── -->
+    <nav id="nav">
+        <div class="container">
+            <a href="#" class="nav-logo" style="font-family: 'Syne', sans-serif !important; font-weight: 800; color: #fff;">Kinetic <span style="color: #fff;">Trials</span></a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#platform">Platform</a></li>
+                <li><a href="#agents">Agents</a></li>
+                <li><a href="#waitlist" class="nav-cta">Learn More</a></li>
+            </ul>
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <line x1="3" y1="6" x2="21" y2="6"/>
+                    <line x1="3" y1="12" x2="21" y2="12"/>
+                    <line x1="3" y1="18" x2="21" y2="18"/>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ── Hero ── -->
+    <section class="hero" id="hero">
+        <div class="hero-bg">
+            <div class="hero-grid"></div>
+        </div>
+        <div class="hero-content">
+            <h1>The Agentic Operating System for Clinical Research</h1>
+            <div class="hero-columns">
+                <p class="hero-col">Transforming clinical trial execution with our Agentic Operating System and building the intelligence layer for research sites.</p>
+                <p class="hero-col">Purpose-built AI agents with clinical trial expertise across core operational workflows. Working 24/7 with your team.</p>
+            </div>
+            <div class="hero-actions">
+                <a href="#waitlist" class="btn-primary">
+                    Learn More
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Backed By ── -->
+    <div class="backed-by">
+        <div class="container">
+            <p class="backed-label">Backed by</p>
+            <div class="backed-logos">
+                <a href="https://www.blingcap.com/" target="_blank" rel="noopener" class="investor-logo">
+                    <svg viewBox="0 0 200 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-svg">
+                        <text x="100" y="28" text-anchor="middle" font-family="'Syne', sans-serif" font-weight="700" font-size="26" fill="currentColor" letter-spacing="-0.5">Bling Capital</text>
+                    </svg>
+                </a>
+                <a href="https://cofoundpartners.com/" target="_blank" rel="noopener" class="investor-logo">
+                    <svg viewBox="0 0 160 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-svg">
+                        <text x="80" y="28" text-anchor="middle" font-family="'Syne', sans-serif" font-weight="700" font-size="26" fill="currentColor" letter-spacing="-0.5">CoFound</text>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Platform ── -->
+    <section class="platform" id="platform">
+        <div class="container">
+            <div class="platform-header reveal">
+                <span class="section-label">Platform</span>
+                <h2><em>Kinetic OS:</em> The AI-Native Operating System Built for Clinical Trial Execution</h2>
+                <div class="platform-cols">
+                    <p>Clinical trials are increasingly more complex. Protocols are denser, workflows are highly inefficient, and data is disconnected.</p>
+                    <p>Kinetic OS orchestrates purpose-built agents for clinical research. Every study makes your trial site smarter and more efficient.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Agents ── -->
+    <section class="agents" id="agents">
+        <div class="container">
+            <div class="agents-header reveal">
+                <span class="section-label">Kinetic OS</span>
+                <h2>Deploy AI agents seamlessly into your team's workflows</h2>
+                <p>Our agents run collaboratively with each other and alongside your team — working 24/7 across core operational workflows.</p>
+            </div>
+
+            <div class="agents-grid reveal">
+                <div class="agent-card">
+                    <div class="agent-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </div>
+                    <h3 class="agent-name">Ava</h3>
+                    <div class="agent-role">Revenue Specialist</div>
+                    <p class="agent-desc">Feasibility, budgeting and billing &amp; collection workflows. Capture more revenue and accelerate your study startup timeline.</p>
+                </div>
+
+                <div class="agent-card">
+                    <div class="agent-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+                    </div>
+                    <h3 class="agent-name">Finn</h3>
+                    <div class="agent-role">Financial Analyst</div>
+                    <p class="agent-desc">Trial forecasting, strategic planning, and bookkeeping. Provides financial clarity and performance visibility across your portfolio.</p>
+                </div>
+
+                <div class="agent-card">
+                    <div class="agent-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    </div>
+                    <h3 class="agent-name">Arnold</h3>
+                    <div class="agent-role">Legal Assistant</div>
+                    <p class="agent-desc">IRB submissions, audit readiness, contracting, documentation, and safety reporting. Keeps your site compliant and protected.</p>
+                </div>
+
+                <div class="agent-card">
+                    <div class="agent-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    </div>
+                    <h3 class="agent-name">Charlie</h3>
+                    <div class="agent-role">Trial Operations</div>
+                    <p class="agent-desc">Visit scheduling, protocol compliance, enrollment tracking, and patient retention. Orchestrates the operational heartbeat of your trials.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CTA / Waitlist ── -->
+    <section class="cta-section" id="waitlist">
+        <div class="container">
+            <div class="cta-box reveal">
+                <span class="section-label">Get Started</span>
+                <h2>Interested in <em>Kinetic OS</em>?</h2>
+                <p>We're connecting with site management organizations, academic medical centers, health systems, and independent trial sites who want to transform their operations with AI. Join our email list and learn more about our pilot program waitlist.</p>
+
+                <form class="cta-form" id="waitlistForm" name="waitlist" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                    <input type="hidden" name="form-name" value="waitlist">
+                    <p style="display:none"><input name="bot-field"></p>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="firstName">First Name *</label>
+                            <input type="text" id="firstName" name="firstName" placeholder="Jane" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name *</label>
+                            <input type="text" id="lastName" name="lastName" placeholder="Smith" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Work Email *</label>
+                            <input type="email" id="email" name="email" placeholder="jane@company.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Company *</label>
+                            <input type="text" id="company" name="company" placeholder="Your organization" required>
+                        </div>
+                    </div>
+                    <div class="form-submit">
+                        <button type="submit" class="btn-primary">
+                            Submit
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                        </button>
+                    </div>
+                    <p class="form-note">We'll reach out within 48 hours to discuss your site's needs.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Footer ── -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo" style="font-family: 'Syne', sans-serif !important;">Kinetic <span>Trials</span></div>
+            <div class="footer-right">&copy; 2026 KineticTrials Inc. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        // Nav scroll effect
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 40);
+        });
+
+        // Mobile toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+        mobileToggle.addEventListener('click', () => {
+            const isOpen = navLinks.classList.toggle('open');
+            document.body.style.overflow = isOpen ? 'hidden' : '';
+            mobileToggle.innerHTML = isOpen
+                ? '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
+                : '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+        });
+
+        // Close mobile menu on link click
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                document.body.style.overflow = '';
+                mobileToggle.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+            });
+        });
+
+        // Scroll reveal - auto-trigger for preview
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+        reveals.forEach(el => observer.observe(el));
+
+        // Form handling
+        const form = document.getElementById('waitlistForm');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = form.querySelector('.btn-primary');
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<span>Submitting...</span>';
+            btn.disabled = true;
+
+            const formData = new FormData(form);
+            fetch('/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(formData).toString()
+            })
+            .then(() => {
+                btn.innerHTML = '<span>✓ You\'re on the list!</span>';
+                btn.style.background = '#059669';
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                    btn.style.background = '';
+                    btn.disabled = false;
+                    form.reset();
+                }, 3000);
+            })
+            .catch(() => {
+                btn.innerHTML = '<span>Something went wrong — try again</span>';
+                btn.style.background = '#dc2626';
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                    btn.style.background = '';
+                    btn.disabled = false;
+                }, 3000);
+            });
+        });
+    </script>
+
+</div>
+</body>
+</html>
