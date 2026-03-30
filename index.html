@@ -686,45 +686,79 @@
         .lifecycle-mobile {
             display: none;
             position: relative;
-            padding-left: 28px;
+            padding-left: 36px;
         }
 
-        /* Vertical line */
+        /* Vertical line — dim track */
         .lifecycle-mobile::before {
             content: '';
             position: absolute;
             top: 0;
             bottom: 0;
-            left: 8px;
-            width: 1px;
-            background: var(--border-light);
+            left: 12px;
+            width: 2px;
+            background: var(--border);
+        }
+
+        /* Progress line — draws as you scroll */
+        .lifecycle-mobile::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 12px;
+            width: 2px;
+            height: var(--progress-height, 0px);
+            background: var(--accent-light);
+            transition: height 0.4s ease;
         }
 
         /* Phase marker */
         .mt-phase {
             position: relative;
-            padding: 12px 0;
+            padding: 16px 0;
+            opacity: 0;
+            transform: translateY(12px);
+            transition: all 0.5s ease;
         }
 
-        .mt-phase-dot {
+        .mt-phase.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Dot — dim outline, glows when revealed */
+        .mt-phase::before {
+            content: '';
             position: absolute;
-            left: -24px;
+            left: -30px;
             top: 50%;
             transform: translateY(-50%);
-            width: 9px;
-            height: 9px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            background: var(--border-light);
-            border: 2px solid var(--bg-primary);
-            z-index: 1;
+            background: var(--bg-primary);
+            border: 2px solid var(--border-light);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 2;
+        }
+
+        .mt-phase.revealed::before {
+            border-color: var(--accent-light);
+            background: var(--accent-light);
+            box-shadow: 0 0 0 4px rgba(107, 147, 255, 0.2);
         }
 
         .mt-phase-label {
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.1em;
             color: var(--text-muted);
+            transition: color 0.5s ease;
+        }
+
+        .mt-phase.revealed .mt-phase-label {
+            color: var(--text-primary);
         }
 
         /* Capability card */
@@ -733,27 +767,42 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 14px 16px;
+            padding: 16px;
             border-radius: var(--radius-sm);
-            margin: 4px 0;
+            margin: 8px 0;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Connector dot on timeline */
+        .mt-card.revealed {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Connector dot on the line */
         .mt-card::before {
             content: '';
             position: absolute;
-            left: -22px;
+            left: -29px;
             top: 50%;
             transform: translateY(-50%);
-            width: 5px;
-            height: 5px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
+            z-index: 2;
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+
+        .mt-card.revealed::before {
+            opacity: 1;
         }
 
         .mt-card-icon {
-            width: 32px;
-            height: 32px;
-            min-width: 32px;
+            width: 34px;
+            height: 34px;
+            min-width: 34px;
             border-radius: 8px;
             display: flex;
             align-items: center;
@@ -767,10 +816,9 @@
 
         .mt-card-name {
             font-family: var(--font-display);
-            font-size: 0.85rem;
+            font-size: 0.88rem;
             font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 1px;
         }
 
         .mt-card-span {
@@ -1201,7 +1249,7 @@
             }
 
             .lifecycle-mobile {
-                display: flex;
+                display: block;
             }
 
             .form-grid {
@@ -1475,7 +1523,6 @@
             <!-- Mobile: vertical timeline -->
             <div class="lifecycle-mobile reveal">
                 <div class="mt-phase">
-                    <div class="mt-phase-dot"></div>
                     <span class="mt-phase-label">Feasibility</span>
                 </div>
 
@@ -1500,12 +1547,10 @@
                 </div>
 
                 <div class="mt-phase">
-                    <div class="mt-phase-dot"></div>
                     <span class="mt-phase-label">Budget &amp; contract</span>
                 </div>
 
                 <div class="mt-phase">
-                    <div class="mt-phase-dot"></div>
                     <span class="mt-phase-label">Regulatory</span>
                 </div>
 
@@ -1530,7 +1575,6 @@
                 </div>
 
                 <div class="mt-phase">
-                    <div class="mt-phase-dot"></div>
                     <span class="mt-phase-label">Enrollment</span>
                 </div>
 
@@ -1545,12 +1589,10 @@
                 </div>
 
                 <div class="mt-phase">
-                    <div class="mt-phase-dot"></div>
                     <span class="mt-phase-label">Execution</span>
                 </div>
 
                 <div class="mt-phase">
-                    <div class="mt-phase-dot"></div>
                     <span class="mt-phase-label">Closeout</span>
                 </div>
             </div>
@@ -1696,6 +1738,31 @@
                 });
             }
         });
+
+        // Mobile timeline scroll reveal
+        (function initMobileTimeline() {
+            var mt = document.querySelector('.lifecycle-mobile');
+            if (!mt) return;
+
+            var items = mt.querySelectorAll('.mt-phase, .mt-card');
+
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                        // Update progress line height
+                        var revealed = mt.querySelectorAll('.revealed');
+                        if (revealed.length) {
+                            var last = revealed[revealed.length - 1];
+                            var h = last.offsetTop + last.offsetHeight;
+                            mt.style.setProperty('--progress-height', h + 'px');
+                        }
+                    }
+                });
+            }, { threshold: 0.3, rootMargin: '0px 0px -60px 0px' });
+
+            items.forEach(function(item) { observer.observe(item); });
+        })();
 
         // Form handling
         const form = document.getElementById('waitlistForm');
