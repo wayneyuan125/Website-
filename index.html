@@ -821,11 +821,10 @@
             color: var(--text-primary);
         }
 
-        .mt-card-span {
-            font-size: 0.65rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+        .mt-card-desc {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
             margin-top: 2px;
         }
 
@@ -836,7 +835,6 @@
         }
         .mt-card.mt-violet::before { background: var(--accent-violet); }
         .mt-card.mt-violet .mt-card-icon { background: rgba(167, 139, 250, 0.15); color: var(--accent-violet); }
-        .mt-card.mt-violet .mt-card-span { color: var(--accent-violet); }
 
         /* Card colors — green */
         .mt-card.mt-green {
@@ -845,7 +843,6 @@
         }
         .mt-card.mt-green::before { background: var(--accent-green); }
         .mt-card.mt-green .mt-card-icon { background: rgba(52, 211, 153, 0.15); color: var(--accent-green); }
-        .mt-card.mt-green .mt-card-span { color: var(--accent-green); }
 
         /* Card colors — amber */
         .mt-card.mt-amber {
@@ -854,7 +851,6 @@
         }
         .mt-card.mt-amber::before { background: var(--accent-amber); }
         .mt-card.mt-amber .mt-card-icon { background: rgba(251, 191, 36, 0.15); color: var(--accent-amber); }
-        .mt-card.mt-amber .mt-card-span { color: var(--accent-amber); }
 
         /* Card colors — rose */
         .mt-card.mt-rose {
@@ -863,7 +859,6 @@
         }
         .mt-card.mt-rose::before { background: var(--accent-rose); }
         .mt-card.mt-rose .mt-card-icon { background: rgba(244, 114, 182, 0.15); color: var(--accent-rose); }
-        .mt-card.mt-rose .mt-card-span { color: var(--accent-rose); }
 
         /* Card colors — blue */
         .mt-card.mt-blue {
@@ -872,7 +867,6 @@
         }
         .mt-card.mt-blue::before { background: var(--accent); }
         .mt-card.mt-blue .mt-card-icon { background: rgba(79, 125, 245, 0.15); color: var(--accent); }
-        .mt-card.mt-blue .mt-card-span { color: var(--accent); }
 
         /* ── How It Works ── */
         .how-it-works {
@@ -1523,7 +1517,7 @@
             <!-- Mobile: vertical timeline -->
             <div class="lifecycle-mobile reveal">
                 <div class="mt-phase">
-                    <span class="mt-phase-label">Feasibility</span>
+                    <span class="mt-phase-label">Study Startup</span>
                 </div>
 
                 <div class="mt-card mt-violet">
@@ -1532,7 +1526,7 @@
                     </div>
                     <div class="mt-card-content">
                         <div class="mt-card-name">Revenue capture</div>
-                        <div class="mt-card-span">Feasibility &mdash; Regulatory</div>
+                        <div class="mt-card-desc">Feasibility, budget negotiation, payment tracking &amp; invoice management</div>
                     </div>
                 </div>
 
@@ -1542,16 +1536,12 @@
                     </div>
                     <div class="mt-card-content">
                         <div class="mt-card-name">Legal &amp; regulatory</div>
-                        <div class="mt-card-span">Full lifecycle</div>
+                        <div class="mt-card-desc">Contracts, IRB submissions, compliance monitoring, safety reporting</div>
                     </div>
                 </div>
 
                 <div class="mt-phase">
-                    <span class="mt-phase-label">Budget &amp; contract</span>
-                </div>
-
-                <div class="mt-phase">
-                    <span class="mt-phase-label">Regulatory</span>
+                    <span class="mt-phase-label">Enrollment &amp; Activation</span>
                 </div>
 
                 <div class="mt-card mt-green">
@@ -1560,7 +1550,7 @@
                     </div>
                     <div class="mt-card-content">
                         <div class="mt-card-name">Patient recruitment</div>
-                        <div class="mt-card-span">Regulatory &mdash; Execution</div>
+                        <div class="mt-card-desc">Patient identification, screening, enrollment funnel</div>
                     </div>
                 </div>
 
@@ -1570,12 +1560,12 @@
                     </div>
                     <div class="mt-card-content">
                         <div class="mt-card-name">Site operations</div>
-                        <div class="mt-card-span">Regulatory &mdash; Closeout</div>
+                        <div class="mt-card-desc">Protocol execution, visit guidance, monitoring readiness</div>
                     </div>
                 </div>
 
                 <div class="mt-phase">
-                    <span class="mt-phase-label">Enrollment</span>
+                    <span class="mt-phase-label">Trial Execution</span>
                 </div>
 
                 <div class="mt-card mt-rose">
@@ -1584,16 +1574,8 @@
                     </div>
                     <div class="mt-card-content">
                         <div class="mt-card-name">Patient retention</div>
-                        <div class="mt-card-span">Enrollment &mdash; Closeout</div>
+                        <div class="mt-card-desc">Visit scheduling, dropout risk detection, automated reminders, proactive outreach</div>
                     </div>
-                </div>
-
-                <div class="mt-phase">
-                    <span class="mt-phase-label">Execution</span>
-                </div>
-
-                <div class="mt-phase">
-                    <span class="mt-phase-label">Closeout</span>
                 </div>
             </div>
         </div>
