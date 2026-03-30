@@ -682,6 +682,77 @@
         .lane-blue .lane-icon { background: rgba(79, 125, 245, 0.15); color: var(--accent); }
         .lane-blue .lane-phases { color: var(--accent); }
 
+        /* ── Mobile lifecycle (phase-by-phase scroll) ── */
+        .lifecycle-mobile {
+            display: none;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .mobile-phase {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .mobile-phase:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-phase-name {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .mobile-phase-capabilities {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .mobile-cap {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        .mobile-cap.violet {
+            background: rgba(167, 139, 250, 0.1);
+            border: 1px solid rgba(167, 139, 250, 0.25);
+            color: var(--accent-violet);
+        }
+
+        .mobile-cap.green {
+            background: rgba(52, 211, 153, 0.1);
+            border: 1px solid rgba(52, 211, 153, 0.25);
+            color: var(--accent-green);
+        }
+
+        .mobile-cap.amber {
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.25);
+            color: var(--accent-amber);
+        }
+
+        .mobile-cap.rose {
+            background: rgba(244, 114, 182, 0.1);
+            border: 1px solid rgba(244, 114, 182, 0.25);
+            color: var(--accent-rose);
+        }
+
+        .mobile-cap.blue {
+            background: rgba(79, 125, 245, 0.1);
+            border: 1px solid rgba(79, 125, 245, 0.25);
+            color: var(--accent-light);
+        }
+
         /* ── How It Works ── */
         .how-it-works {
             padding: 100px 24px 140px;
@@ -1051,17 +1122,13 @@
             }
 
             .lifecycle-phases,
-            .lifecycle-timeline {
+            .lifecycle-timeline,
+            .lifecycle-lanes {
                 display: none;
             }
 
-            .lane-bar {
-                margin-left: 0 !important;
-                width: 100% !important;
-            }
-
-            .lane-phases {
-                display: block;
+            .lifecycle-mobile {
+                display: flex;
             }
 
             .form-grid {
@@ -1116,16 +1183,9 @@
                 font-size: 0.9rem;
             }
 
-            .lane-bar {
-                padding: 12px 14px;
-            }
-
-            .lane-name {
-                font-size: 0.85rem;
-            }
-
-            .lane-desc {
-                font-size: 0.78rem;
+            .mobile-cap {
+                font-size: 0.72rem;
+                padding: 6px 12px;
             }
 
             .backed-logos {
@@ -1325,6 +1385,59 @@
                         <div class="lane-name">Legal &amp; regulatory</div>
                         <div class="lane-desc"><span>Contracts, IRB submissions, compliance monitoring, safety reporting</span></div>
                         <div class="lane-phases">Feasibility — Closeout (full lifecycle)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile: phase-by-phase scroll -->
+            <div class="lifecycle-mobile reveal">
+                <div class="mobile-phase">
+                    <div class="mobile-phase-name">Feasibility</div>
+                    <div class="mobile-phase-capabilities">
+                        <span class="mobile-cap violet">Revenue capture</span>
+                        <span class="mobile-cap blue">Legal &amp; regulatory</span>
+                    </div>
+                </div>
+                <div class="mobile-phase">
+                    <div class="mobile-phase-name">Budget &amp; contract</div>
+                    <div class="mobile-phase-capabilities">
+                        <span class="mobile-cap violet">Revenue capture</span>
+                        <span class="mobile-cap blue">Legal &amp; regulatory</span>
+                    </div>
+                </div>
+                <div class="mobile-phase">
+                    <div class="mobile-phase-name">Regulatory</div>
+                    <div class="mobile-phase-capabilities">
+                        <span class="mobile-cap violet">Revenue capture</span>
+                        <span class="mobile-cap green">Patient recruitment</span>
+                        <span class="mobile-cap amber">Site operations</span>
+                        <span class="mobile-cap blue">Legal &amp; regulatory</span>
+                    </div>
+                </div>
+                <div class="mobile-phase">
+                    <div class="mobile-phase-name">Enrollment</div>
+                    <div class="mobile-phase-capabilities">
+                        <span class="mobile-cap green">Patient recruitment</span>
+                        <span class="mobile-cap amber">Site operations</span>
+                        <span class="mobile-cap rose">Patient retention</span>
+                        <span class="mobile-cap blue">Legal &amp; regulatory</span>
+                    </div>
+                </div>
+                <div class="mobile-phase">
+                    <div class="mobile-phase-name">Execution</div>
+                    <div class="mobile-phase-capabilities">
+                        <span class="mobile-cap green">Patient recruitment</span>
+                        <span class="mobile-cap amber">Site operations</span>
+                        <span class="mobile-cap rose">Patient retention</span>
+                        <span class="mobile-cap blue">Legal &amp; regulatory</span>
+                    </div>
+                </div>
+                <div class="mobile-phase">
+                    <div class="mobile-phase-name">Closeout</div>
+                    <div class="mobile-phase-capabilities">
+                        <span class="mobile-cap amber">Site operations</span>
+                        <span class="mobile-cap rose">Patient retention</span>
+                        <span class="mobile-cap blue">Legal &amp; regulatory</span>
                     </div>
                 </div>
             </div>
