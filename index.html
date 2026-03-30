@@ -682,6 +682,192 @@
         .lane-blue .lane-icon { background: rgba(79, 125, 245, 0.15); color: var(--accent); }
         .lane-blue .lane-phases { color: var(--accent); }
 
+        /* ── Mobile vertical timeline ── */
+        .lifecycle-mobile {
+            display: none;
+            position: relative;
+            padding-left: 36px;
+        }
+
+        /* Vertical line — dim track */
+        .lifecycle-mobile::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 12px;
+            width: 2px;
+            background: var(--border);
+        }
+
+        /* Progress line — draws as you scroll */
+        .lifecycle-mobile::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 12px;
+            width: 2px;
+            height: var(--progress-height, 0px);
+            background: var(--accent-light);
+            transition: height 0.4s ease;
+        }
+
+        /* Phase marker */
+        .mt-phase {
+            position: relative;
+            padding: 16px 0;
+            opacity: 0;
+            transform: translateY(12px);
+            transition: all 0.5s ease;
+        }
+
+        .mt-phase.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Dot — dim outline, glows when revealed */
+        .mt-phase::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--bg-primary);
+            border: 2px solid var(--border-light);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 2;
+        }
+
+        .mt-phase.revealed::before {
+            border-color: var(--accent-light);
+            background: var(--accent-light);
+            box-shadow: 0 0 0 4px rgba(107, 147, 255, 0.2);
+        }
+
+        .mt-phase-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            transition: color 0.5s ease;
+        }
+
+        .mt-phase.revealed .mt-phase-label {
+            color: var(--text-primary);
+        }
+
+        /* Capability card */
+        .mt-card {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            border-radius: var(--radius-sm);
+            margin: 8px 0;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .mt-card.revealed {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Connector dot on the line */
+        .mt-card::before {
+            content: '';
+            position: absolute;
+            left: -29px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            z-index: 2;
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+
+        .mt-card.revealed::before {
+            opacity: 1;
+        }
+
+        .mt-card-icon {
+            width: 34px;
+            height: 34px;
+            min-width: 34px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mt-card-icon svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .mt-card-name {
+            font-family: var(--font-display);
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .mt-card-desc {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-top: 2px;
+        }
+
+        /* Card colors — violet */
+        .mt-card.mt-violet {
+            background: rgba(167, 139, 250, 0.08);
+            border: 1px solid rgba(167, 139, 250, 0.2);
+        }
+        .mt-card.mt-violet::before { background: var(--accent-violet); }
+        .mt-card.mt-violet .mt-card-icon { background: rgba(167, 139, 250, 0.15); color: var(--accent-violet); }
+
+        /* Card colors — green */
+        .mt-card.mt-green {
+            background: rgba(52, 211, 153, 0.08);
+            border: 1px solid rgba(52, 211, 153, 0.2);
+        }
+        .mt-card.mt-green::before { background: var(--accent-green); }
+        .mt-card.mt-green .mt-card-icon { background: rgba(52, 211, 153, 0.15); color: var(--accent-green); }
+
+        /* Card colors — amber */
+        .mt-card.mt-amber {
+            background: rgba(251, 191, 36, 0.08);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+        }
+        .mt-card.mt-amber::before { background: var(--accent-amber); }
+        .mt-card.mt-amber .mt-card-icon { background: rgba(251, 191, 36, 0.15); color: var(--accent-amber); }
+
+        /* Card colors — rose */
+        .mt-card.mt-rose {
+            background: rgba(244, 114, 182, 0.08);
+            border: 1px solid rgba(244, 114, 182, 0.2);
+        }
+        .mt-card.mt-rose::before { background: var(--accent-rose); }
+        .mt-card.mt-rose .mt-card-icon { background: rgba(244, 114, 182, 0.15); color: var(--accent-rose); }
+
+        /* Card colors — blue */
+        .mt-card.mt-blue {
+            background: rgba(79, 125, 245, 0.08);
+            border: 1px solid rgba(79, 125, 245, 0.2);
+        }
+        .mt-card.mt-blue::before { background: var(--accent); }
+        .mt-card.mt-blue .mt-card-icon { background: rgba(79, 125, 245, 0.15); color: var(--accent); }
+
         /* ── How It Works ── */
         .how-it-works {
             padding: 100px 24px 140px;
@@ -1051,16 +1237,12 @@
             }
 
             .lifecycle-phases,
-            .lifecycle-timeline {
+            .lifecycle-timeline,
+            .lifecycle-lanes {
                 display: none;
             }
 
-            .lane-bar {
-                margin-left: 0 !important;
-                width: 100% !important;
-            }
-
-            .lane-phases {
+            .lifecycle-mobile {
                 display: block;
             }
 
@@ -1116,16 +1298,19 @@
                 font-size: 0.9rem;
             }
 
-            .lane-bar {
-                padding: 12px 14px;
+            .mt-card-name {
+                font-size: 0.8rem;
             }
 
-            .lane-name {
-                font-size: 0.85rem;
+            .mt-card-icon {
+                width: 28px;
+                height: 28px;
+                min-width: 28px;
             }
 
-            .lane-desc {
-                font-size: 0.78rem;
+            .mt-card-icon svg {
+                width: 14px;
+                height: 14px;
             }
 
             .backed-logos {
@@ -1328,6 +1513,71 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Mobile: vertical timeline -->
+            <div class="lifecycle-mobile reveal">
+                <div class="mt-phase">
+                    <span class="mt-phase-label">Study Startup</span>
+                </div>
+
+                <div class="mt-card mt-violet">
+                    <div class="mt-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </div>
+                    <div class="mt-card-content">
+                        <div class="mt-card-name">Revenue capture</div>
+                        <div class="mt-card-desc">Feasibility, budget negotiation, payment tracking &amp; invoice management</div>
+                    </div>
+                </div>
+
+                <div class="mt-card mt-blue">
+                    <div class="mt-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    </div>
+                    <div class="mt-card-content">
+                        <div class="mt-card-name">Legal &amp; regulatory</div>
+                        <div class="mt-card-desc">Contracts, IRB submissions, compliance monitoring, safety reporting</div>
+                    </div>
+                </div>
+
+                <div class="mt-phase">
+                    <span class="mt-phase-label">Enrollment &amp; Activation</span>
+                </div>
+
+                <div class="mt-card mt-green">
+                    <div class="mt-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+                    </div>
+                    <div class="mt-card-content">
+                        <div class="mt-card-name">Patient recruitment</div>
+                        <div class="mt-card-desc">Patient identification, screening, enrollment funnel</div>
+                    </div>
+                </div>
+
+                <div class="mt-card mt-amber">
+                    <div class="mt-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                    </div>
+                    <div class="mt-card-content">
+                        <div class="mt-card-name">Site operations</div>
+                        <div class="mt-card-desc">Protocol execution, visit guidance, monitoring readiness</div>
+                    </div>
+                </div>
+
+                <div class="mt-phase">
+                    <span class="mt-phase-label">Trial Execution</span>
+                </div>
+
+                <div class="mt-card mt-rose">
+                    <div class="mt-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    </div>
+                    <div class="mt-card-content">
+                        <div class="mt-card-name">Patient retention</div>
+                        <div class="mt-card-desc">Visit scheduling, dropout risk detection, automated reminders, proactive outreach</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1470,6 +1720,31 @@
                 });
             }
         });
+
+        // Mobile timeline scroll reveal
+        (function initMobileTimeline() {
+            var mt = document.querySelector('.lifecycle-mobile');
+            if (!mt) return;
+
+            var items = mt.querySelectorAll('.mt-phase, .mt-card');
+
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                        // Update progress line height
+                        var revealed = mt.querySelectorAll('.revealed');
+                        if (revealed.length) {
+                            var last = revealed[revealed.length - 1];
+                            var h = last.offsetTop + last.offsetHeight;
+                            mt.style.setProperty('--progress-height', h + 'px');
+                        }
+                    }
+                });
+            }, { threshold: 0.3, rootMargin: '0px 0px -60px 0px' });
+
+            items.forEach(function(item) { observer.observe(item); });
+        })();
 
         // Form handling
         const form = document.getElementById('waitlistForm');
