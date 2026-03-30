@@ -682,76 +682,149 @@
         .lane-blue .lane-icon { background: rgba(79, 125, 245, 0.15); color: var(--accent); }
         .lane-blue .lane-phases { color: var(--accent); }
 
-        /* ── Mobile lifecycle (phase-by-phase scroll) ── */
+        /* ── Mobile vertical timeline ── */
         .lifecycle-mobile {
             display: none;
-            flex-direction: column;
-            gap: 0;
+            position: relative;
+            padding-left: 28px;
         }
 
-        .mobile-phase {
-            padding: 20px 0;
-            border-bottom: 1px solid var(--border);
+        /* Vertical line */
+        .lifecycle-mobile::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 8px;
+            width: 1px;
+            background: var(--border-light);
         }
 
-        .mobile-phase:last-child {
-            border-bottom: none;
+        /* Phase marker */
+        .mt-phase {
+            position: relative;
+            padding: 12px 0;
         }
 
-        .mobile-phase-name {
-            font-size: 0.7rem;
+        .mt-phase-dot {
+            position: absolute;
+            left: -24px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--border-light);
+            border: 2px solid var(--bg-primary);
+            z-index: 1;
+        }
+
+        .mt-phase-label {
+            font-size: 0.65rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.1em;
             color: var(--text-muted);
-            margin-bottom: 12px;
         }
 
-        .mobile-phase-capabilities {
+        /* Capability card */
+        .mt-card {
+            position: relative;
             display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .mobile-cap {
-            display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 8px 14px;
-            border-radius: 20px;
-            font-size: 0.78rem;
+            gap: 12px;
+            padding: 14px 16px;
+            border-radius: var(--radius-sm);
+            margin: 4px 0;
+        }
+
+        /* Connector dot on timeline */
+        .mt-card::before {
+            content: '';
+            position: absolute;
+            left: -22px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+        }
+
+        .mt-card-icon {
+            width: 32px;
+            height: 32px;
+            min-width: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mt-card-icon svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .mt-card-name {
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1px;
+        }
+
+        .mt-card-span {
+            font-size: 0.65rem;
             font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 2px;
         }
 
-        .mobile-cap.violet {
-            background: rgba(167, 139, 250, 0.1);
-            border: 1px solid rgba(167, 139, 250, 0.25);
-            color: var(--accent-violet);
+        /* Card colors — violet */
+        .mt-card.mt-violet {
+            background: rgba(167, 139, 250, 0.08);
+            border: 1px solid rgba(167, 139, 250, 0.2);
         }
+        .mt-card.mt-violet::before { background: var(--accent-violet); }
+        .mt-card.mt-violet .mt-card-icon { background: rgba(167, 139, 250, 0.15); color: var(--accent-violet); }
+        .mt-card.mt-violet .mt-card-span { color: var(--accent-violet); }
 
-        .mobile-cap.green {
-            background: rgba(52, 211, 153, 0.1);
-            border: 1px solid rgba(52, 211, 153, 0.25);
-            color: var(--accent-green);
+        /* Card colors — green */
+        .mt-card.mt-green {
+            background: rgba(52, 211, 153, 0.08);
+            border: 1px solid rgba(52, 211, 153, 0.2);
         }
+        .mt-card.mt-green::before { background: var(--accent-green); }
+        .mt-card.mt-green .mt-card-icon { background: rgba(52, 211, 153, 0.15); color: var(--accent-green); }
+        .mt-card.mt-green .mt-card-span { color: var(--accent-green); }
 
-        .mobile-cap.amber {
-            background: rgba(251, 191, 36, 0.1);
-            border: 1px solid rgba(251, 191, 36, 0.25);
-            color: var(--accent-amber);
+        /* Card colors — amber */
+        .mt-card.mt-amber {
+            background: rgba(251, 191, 36, 0.08);
+            border: 1px solid rgba(251, 191, 36, 0.2);
         }
+        .mt-card.mt-amber::before { background: var(--accent-amber); }
+        .mt-card.mt-amber .mt-card-icon { background: rgba(251, 191, 36, 0.15); color: var(--accent-amber); }
+        .mt-card.mt-amber .mt-card-span { color: var(--accent-amber); }
 
-        .mobile-cap.rose {
-            background: rgba(244, 114, 182, 0.1);
-            border: 1px solid rgba(244, 114, 182, 0.25);
-            color: var(--accent-rose);
+        /* Card colors — rose */
+        .mt-card.mt-rose {
+            background: rgba(244, 114, 182, 0.08);
+            border: 1px solid rgba(244, 114, 182, 0.2);
         }
+        .mt-card.mt-rose::before { background: var(--accent-rose); }
+        .mt-card.mt-rose .mt-card-icon { background: rgba(244, 114, 182, 0.15); color: var(--accent-rose); }
+        .mt-card.mt-rose .mt-card-span { color: var(--accent-rose); }
 
-        .mobile-cap.blue {
-            background: rgba(79, 125, 245, 0.1);
-            border: 1px solid rgba(79, 125, 245, 0.25);
-            color: var(--accent-light);
+        /* Card colors — blue */
+        .mt-card.mt-blue {
+            background: rgba(79, 125, 245, 0.08);
+            border: 1px solid rgba(79, 125, 245, 0.2);
         }
+        .mt-card.mt-blue::before { background: var(--accent); }
+        .mt-card.mt-blue .mt-card-icon { background: rgba(79, 125, 245, 0.15); color: var(--accent); }
+        .mt-card.mt-blue .mt-card-span { color: var(--accent); }
 
         /* ── How It Works ── */
         .how-it-works {
@@ -1183,9 +1256,19 @@
                 font-size: 0.9rem;
             }
 
-            .mobile-cap {
-                font-size: 0.72rem;
-                padding: 6px 12px;
+            .mt-card-name {
+                font-size: 0.8rem;
+            }
+
+            .mt-card-icon {
+                width: 28px;
+                height: 28px;
+                min-width: 28px;
+            }
+
+            .mt-card-icon svg {
+                width: 14px;
+                height: 14px;
             }
 
             .backed-logos {
@@ -1389,56 +1472,86 @@
                 </div>
             </div>
 
-            <!-- Mobile: phase-by-phase scroll -->
+            <!-- Mobile: vertical timeline -->
             <div class="lifecycle-mobile reveal">
-                <div class="mobile-phase">
-                    <div class="mobile-phase-name">Feasibility</div>
-                    <div class="mobile-phase-capabilities">
-                        <span class="mobile-cap violet">Revenue capture</span>
-                        <span class="mobile-cap blue">Legal &amp; regulatory</span>
+                <div class="mt-phase">
+                    <div class="mt-phase-dot"></div>
+                    <span class="mt-phase-label">Feasibility</span>
+                </div>
+
+                <div class="mt-card mt-violet">
+                    <div class="mt-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </div>
+                    <div class="mt-card-content">
+                        <div class="mt-card-name">Revenue capture</div>
+                        <div class="mt-card-span">Feasibility &mdash; Regulatory</div>
                     </div>
                 </div>
-                <div class="mobile-phase">
-                    <div class="mobile-phase-name">Budget &amp; contract</div>
-                    <div class="mobile-phase-capabilities">
-                        <span class="mobile-cap violet">Revenue capture</span>
-                        <span class="mobile-cap blue">Legal &amp; regulatory</span>
+
+                <div class="mt-card mt-blue">
+                    <div class="mt-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    </div>
+                    <div class="mt-card-content">
+                        <div class="mt-card-name">Legal &amp; regulatory</div>
+                        <div class="mt-card-span">Full lifecycle</div>
                     </div>
                 </div>
-                <div class="mobile-phase">
-                    <div class="mobile-phase-name">Regulatory</div>
-                    <div class="mobile-phase-capabilities">
-                        <span class="mobile-cap violet">Revenue capture</span>
-                        <span class="mobile-cap green">Patient recruitment</span>
-                        <span class="mobile-cap amber">Site operations</span>
-                        <span class="mobile-cap blue">Legal &amp; regulatory</span>
+
+                <div class="mt-phase">
+                    <div class="mt-phase-dot"></div>
+                    <span class="mt-phase-label">Budget &amp; contract</span>
+                </div>
+
+                <div class="mt-phase">
+                    <div class="mt-phase-dot"></div>
+                    <span class="mt-phase-label">Regulatory</span>
+                </div>
+
+                <div class="mt-card mt-green">
+                    <div class="mt-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+                    </div>
+                    <div class="mt-card-content">
+                        <div class="mt-card-name">Patient recruitment</div>
+                        <div class="mt-card-span">Regulatory &mdash; Execution</div>
                     </div>
                 </div>
-                <div class="mobile-phase">
-                    <div class="mobile-phase-name">Enrollment</div>
-                    <div class="mobile-phase-capabilities">
-                        <span class="mobile-cap green">Patient recruitment</span>
-                        <span class="mobile-cap amber">Site operations</span>
-                        <span class="mobile-cap rose">Patient retention</span>
-                        <span class="mobile-cap blue">Legal &amp; regulatory</span>
+
+                <div class="mt-card mt-amber">
+                    <div class="mt-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                    </div>
+                    <div class="mt-card-content">
+                        <div class="mt-card-name">Site operations</div>
+                        <div class="mt-card-span">Regulatory &mdash; Closeout</div>
                     </div>
                 </div>
-                <div class="mobile-phase">
-                    <div class="mobile-phase-name">Execution</div>
-                    <div class="mobile-phase-capabilities">
-                        <span class="mobile-cap green">Patient recruitment</span>
-                        <span class="mobile-cap amber">Site operations</span>
-                        <span class="mobile-cap rose">Patient retention</span>
-                        <span class="mobile-cap blue">Legal &amp; regulatory</span>
+
+                <div class="mt-phase">
+                    <div class="mt-phase-dot"></div>
+                    <span class="mt-phase-label">Enrollment</span>
+                </div>
+
+                <div class="mt-card mt-rose">
+                    <div class="mt-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    </div>
+                    <div class="mt-card-content">
+                        <div class="mt-card-name">Patient retention</div>
+                        <div class="mt-card-span">Enrollment &mdash; Closeout</div>
                     </div>
                 </div>
-                <div class="mobile-phase">
-                    <div class="mobile-phase-name">Closeout</div>
-                    <div class="mobile-phase-capabilities">
-                        <span class="mobile-cap amber">Site operations</span>
-                        <span class="mobile-cap rose">Patient retention</span>
-                        <span class="mobile-cap blue">Legal &amp; regulatory</span>
-                    </div>
+
+                <div class="mt-phase">
+                    <div class="mt-phase-dot"></div>
+                    <span class="mt-phase-label">Execution</span>
+                </div>
+
+                <div class="mt-phase">
+                    <div class="mt-phase-dot"></div>
+                    <span class="mt-phase-label">Closeout</span>
                 </div>
             </div>
         </div>
